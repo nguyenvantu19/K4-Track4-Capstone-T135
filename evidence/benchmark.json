@@ -1,0 +1,47 @@
+{
+  "evidence_type": "synthetic keypoints; NOT model accuracy or camera FPS",
+  "python": "3.14.7",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "config": {
+    "down": 100,
+    "up": 160,
+    "confidence": 0.55,
+    "dwell_s": 0.15,
+    "smoothing_tau_s": 0.09
+  },
+  "scenarios": [
+    {
+      "scenario": "clean",
+      "frames": 181,
+      "source_fps": 20,
+      "expected_reps": 3,
+      "counted_reps": 3,
+      "absolute_count_error": 0,
+      "rejected_frames": 0,
+      "logic_p50_ms": 0.0222999369725585,
+      "logic_p95_ms": 0.037199934013187885
+    },
+    {
+      "scenario": "occlusion",
+      "frames": 181,
+      "source_fps": 20,
+      "expected_reps": 3,
+      "counted_reps": 2,
+      "absolute_count_error": 1,
+      "rejected_frames": 39,
+      "logic_p50_ms": 0.02280005719512701,
+      "logic_p95_ms": 0.04260009154677391
+    },
+    {
+      "scenario": "projection",
+      "frames": 181,
+      "source_fps": 20,
+      "expected_reps": 3,
+      "counted_reps": 2,
+      "absolute_count_error": 1,
+      "rejected_frames": 0,
+      "logic_p50_ms": 0.02510007470846176,
+      "logic_p95_ms": 0.05010003224015236
+    }
+  ]
+}
