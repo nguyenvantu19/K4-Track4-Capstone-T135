@@ -1,0 +1,33 @@
+{
+  "test": "real YOLO model on three blank frames; not accuracy validation",
+  "python": "3.14.7",
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "opencv-python": "5.0.0.93",
+    "streamlit": "1.66.0",
+    "ultralytics": "8.4.181",
+    "torch": "2.14.1"
+  },
+  "model_sha256": "869e83fcdffdc7371fa4e34cd8e51c838cc729571d1635e5141e3075e9319dc0",
+  "results": [
+    {
+      "processing_ms": 8664.268600055948,
+      "people": 0,
+      "angle": null,
+      "confidence": 0.0
+    },
+    {
+      "processing_ms": 322.0566000090912,
+      "people": 0,
+      "angle": null,
+      "confidence": 0.0
+    },
+    {
+      "processing_ms": 190.9563000081107,
+      "people": 0,
+      "angle": null,
+      "confidence": 0.0
+    }
+  ]
+}
