@@ -1,0 +1,19 @@
+{
+  "date_local": "2026-10-18",
+  "source": "Integrated Webcam 640x480, local Streamlit UI opened in Chrome",
+  "mode": "Balanced: imgsz 416, CPU 2 threads, preview target 20 FPS, pose overlay disabled",
+  "measurement": "UI snapshots after tests finished; rolling server delivery and analysis rates",
+  "observations": [
+    {"preview_fps": 19.0, "analysis_fps": 15.4, "processing_ms": 54, "result_age_ms": 114},
+    {"preview_fps": 18.7, "analysis_fps": 13.8, "processing_ms": 56, "result_age_ms": 146}
+  ],
+  "before_forced_gc_fix": "UI snapshots showed roughly 4.5-6.5 preview FPS, 2-3 analysis FPS and intermittent result ages over 1000 ms",
+  "limits": [
+    "Rates vary with CPU load. Preview rate measures server JPEG delivery, not browser paint.",
+    "Result age excludes browser paint and monitor latency.",
+    "Camera scene was dark and no person was detected; this does not measure pose accuracy or rep counting accuracy on a real person.",
+    "No webcam images or video were saved. Proof screenshot contains the numerical status panel only."
+  ],
+  "reproduce_stream_measurement": ".\\.venv\\Scripts\\python.exe tools/measure_live_preview.py",
+  "tests_passed": 25
+}

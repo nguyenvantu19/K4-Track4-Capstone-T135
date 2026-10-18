@@ -53,14 +53,21 @@ class CameraStream:
             self._ready.set()
 
     def read(self):
+        snapshot = self.snapshot()
+        return (False, None) if snapshot is None else (True, snapshot[2])
+
+    def snapshot(self, after_sequence=None):
+        """Return only the freshest frame with its capture time and sequence."""
         if self.error:
             raise RuntimeError(self.error)
         with self._lock:
             if self._frame is None:
-                return False, None
+                return None
             if time.perf_counter()-self._last_frame > 3:
                 raise RuntimeError("Webcam đã ngừng cập nhật hình. Dừng và mở lại camera.")
-            return True, self._frame.copy()
+            if after_sequence is not None and self.frame_index <= after_sequence:
+                return None
+            return self.frame_index, self._last_frame, self._frame.copy()
 
     def release(self):
         self._stop.set()

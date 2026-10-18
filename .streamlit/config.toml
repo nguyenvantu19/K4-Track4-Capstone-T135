@@ -12,3 +12,8 @@ gatherUsageStats = false
 [server]
 address = "127.0.0.1"
 maxUploadSize = 30
+
+[runner]
+# Full generation-2 collection after every live metrics update stalls all
+# Python threads with the pose model loaded. Keep normal automatic GC enabled.
+postScriptGC = false

@@ -7,7 +7,7 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parents[1]
 PHASES = {"WAIT_STAND": "Chờ đứng thẳng", "STANDING": "Đang đứng", "DOWN": "Đã hạ người"}
-STATUSES = {"VALID": "Đủ dữ liệu", "LOW_CONFIDENCE": "Khớp chưa rõ", "NO_PERSON": "Chưa thấy người", "MULTIPLE_PEOPLE": "Có nhiều người", "INVALID_GEOMETRY": "Không tính được góc"}
+STATUSES = {"VALID": "Đủ dữ liệu", "LOW_CONFIDENCE": "Khớp chưa rõ", "NO_PERSON": "Chưa thấy người", "MULTIPLE_PEOPLE": "Có nhiều người", "INVALID_GEOMETRY": "Không tính được góc", "MODEL_LOADING": "Đang nạp model", "STALE_RESULT": "Chờ kết quả mới"}
 
 
 def camera_frame(image):
