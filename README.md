@@ -56,7 +56,9 @@ Góc = arccos của tích vô hướng hai vector; EMA theo thời gian; hystere
 
 **Còn cần người dùng:** thử webcam ở phòng demo, clip thành viên đội và đánh dấu đếm tay để đánh giá perception, phân vai/diễn tập hỏi đáp. Chưa có số đo accuracy trên người thật. Số đo mô phỏng không thay thế các bước này.
 
-Tổng cộng **21 kiểm thử đã qua**: 11 logic, 5 tích hợp giao diện, 2 bản 3D và 3 kiểm tra webcam. Webcam Windows dùng DirectShow và một luồng riêng giữ thiết bị từ lúc mở đến lúc đóng; ảnh xem trước được truyền trong bộ nhớ để tránh URL media tạm bị mất. Xem [biên bản kiểm chứng](evidence/VALIDATION.md) và [smoke test model thật](evidence/vision_smoke.json). Mô phỏng điểm khớp không phải mô phỏng động lực học cơ thể.
+Tổng cộng **25 kiểm thử đã qua**: 11 logic, 5 tích hợp giao diện, 2 bản 3D và 7 kiểm tra webcam/pipeline. Webcam Windows dùng DirectShow; đọc camera, nhận diện và truyền MJPEG chạy riêng, chỉ lấy khung hình mới nhất để tránh tồn hàng đợi. Xem [biên bản kiểm chứng](evidence/VALIDATION.md), [smoke test model thật](evidence/vision_smoke.json) và [số đo tốc độ webcam thật](evidence/webcam_performance.json). Mô phỏng điểm khớp không phải mô phỏng động lực học cơ thể.
+
+**Tối ưu webcam:** mặc định Cân bằng (đầu vào model 416), thêm Ưu tiên mượt (320) và Ưu tiên chi tiết (640). Dừng camera trước khi đổi chế độ. Tắt vẽ khớp cho hình xem mượt độc lập với nhận diện; bật vẽ khớp sẽ hiển thị đúng khung hình đã phân tích theo tốc độ model. Giảm kích thước có thể mất khớp nhỏ/khó thấy. Đã quan sát khoảng 18–19 FPS truyền hình và 14–15 FPS nhận diện sau khi hết tải kiểm thử; số đo không bao gồm browser paint và màn hình. CPU model giới hạn 2 luồng, tắt dọn bộ nhớ toàn bộ sau mỗi lần cập nhật Streamlit (Python vẫn tự GC bình thường). Kết quả quá 1 giây được đánh dấu cũ và ẩn góc. Sau sửa cấu hình cần khởi động lại server.
 
 ## Nguồn chính thức
 
