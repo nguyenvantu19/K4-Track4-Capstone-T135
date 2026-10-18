@@ -4,7 +4,8 @@ import cv2
 import streamlit as st
 from .core import SquatCounter
 from .vision import MODEL_PATH, load_model, infer, annotate
-from .ui import readout
+from .ui import readout, camera_frame
+from .camera import CameraStream
 
 
 @st.cache_resource(show_spinner=False)
@@ -27,10 +28,7 @@ def camera_panel(side):
         try:
             with st.spinner("Chuẩn bị model và camera…"):
                 cached_model()
-                capture = cv2.VideoCapture(int(index))
-                if not capture.isOpened():
-                    capture.release()
-                    raise RuntimeError("Không mở được webcam. Đóng ứng dụng khác đang giữ camera hoặc thử chỉ số khác.")
+                capture = CameraStream(int(index)).start()
                 st.session_state.update(camera_capture=capture, camera_running=True, camera_counter=SquatCounter(), camera_rows=[], camera_start=time.perf_counter(), camera_side=side)
             st.rerun()
         except Exception as error:
@@ -67,10 +65,14 @@ def camera_panel(side):
             if len(st.session_state.camera_rows) > 30000:
                 st.session_state.camera_rows.pop(0)
             left, right = st.columns([2.15, 1], gap="medium")
-            left.image(annotate(image, row), channels="BGR", width="stretch")
+            left.markdown(camera_frame(annotate(image, row)), unsafe_allow_html=True)
             with right:
                 readout(row)
                 st.caption(f"Xử lý frame: {row['processing_ms']:.0f} ms")
+                st.caption(f"Frame {len(st.session_state.camera_rows)} · {timestamp:.2f} giây nguồn webcam")
+                st.caption(f"Camera đã nhận {st.session_state.camera_capture.frame_index} khung hình")
+                if float(frame.mean()) < 22:
+                    st.caption("Ảnh hiện rất tối. Kiểm tra nắp che webcam và ánh sáng.")
         except Exception as error:
             close_camera()
             st.session_state["camera_error"] = str(error)

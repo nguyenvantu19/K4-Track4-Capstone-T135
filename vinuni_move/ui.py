@@ -1,11 +1,22 @@
 """Presentation helpers for the local dashboard; no model or camera side effects."""
 import html
+import base64
+import cv2
 from pathlib import Path
 import streamlit as st
 
 ROOT = Path(__file__).resolve().parents[1]
 PHASES = {"WAIT_STAND": "Chờ đứng thẳng", "STANDING": "Đang đứng", "DOWN": "Đã hạ người"}
 STATUSES = {"VALID": "Đủ dữ liệu", "LOW_CONFIDENCE": "Khớp chưa rõ", "NO_PERSON": "Chưa thấy người", "MULTIPLE_PEOPLE": "Có nhiều người", "INVALID_GEOMETRY": "Không tính được góc"}
+
+
+def camera_frame(image):
+    """Inline JPEG avoids temporary media URLs being retired between live frames."""
+    ok, encoded = cv2.imencode(".jpg", image, [cv2.IMWRITE_JPEG_QUALITY, 82])
+    if not ok:
+        raise ValueError("Không mã hóa được ảnh webcam")
+    data = base64.b64encode(encoded).decode("ascii")
+    return f'<img alt="Luồng webcam trực tiếp trên máy này" src="data:image/jpeg;base64,{data}" style="display:block;width:100%;height:auto;border-radius:12px;border:1px solid #2b3d4e" />'
 
 
 def style():

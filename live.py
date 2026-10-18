@@ -5,6 +5,7 @@ Recording is explicit (--record); no raw media saved by default.
 import argparse
 import csv
 import time
+import sys
 from pathlib import Path
 import cv2
 from vinuni_move.core import Config, SquatCounter
@@ -21,7 +22,8 @@ def main():
     model = load_model()
     camera = args.source.isdecimal()
     source = int(args.source) if camera else args.source
-    capture = cv2.VideoCapture(source)
+    backend = cv2.CAP_DSHOW if camera and sys.platform == "win32" else cv2.CAP_ANY
+    capture = cv2.VideoCapture(source, backend)
     if not capture.isOpened():
         raise SystemExit("Khong mo duoc camera/video. Dong ung dung dang giu webcam hoac dung --source video.mp4")
     fps = capture.get(cv2.CAP_PROP_FPS)
